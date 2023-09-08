@@ -44,7 +44,7 @@ pipeline {
      steps{
         script { 
        withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
-       sh 'docker build -t "gopisuria/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
+       sh 'docker build -t "gmkmukesh333-DockerHub/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
        
        sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
         }
