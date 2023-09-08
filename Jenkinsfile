@@ -1,8 +1,8 @@
 pipeline {
 
   environment {
-    registry = "gmkmukesh333-DockerHub/flask"
-    registry_mysql = "gmkmukesh333-DockerHub/mysql"
+    registry = "gmkmukesh333/flask"
+    registry_mysql = "gmkmukesh333/mysql"
     dockerImage = ""
   }
 
