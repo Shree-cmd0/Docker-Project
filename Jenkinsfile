@@ -13,7 +13,7 @@ pipeline {
   
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/mgsgoms/Docker-Project.git'
+        git 'https://github.com/gmkmukesh/Docker-Project.git'
       }
     }
 stage('Build and Push Image') {
