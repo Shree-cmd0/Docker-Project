@@ -26,7 +26,7 @@ pipeline {
     stage('Push Flask Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
             dockerImage.push()        
            }
         }
@@ -43,7 +43,7 @@ pipeline {
    stage('Build mysql image') {
      steps{
         script { 
-       withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+       withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
        sh 'docker build -t "gmkmukesh333/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
        
        sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
@@ -53,7 +53,7 @@ pipeline {
     stage('Push MySQL Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
             dockerImage.push("registry_mysql")
           }
         }
@@ -62,7 +62,7 @@ pipeline {
     //stage('Push MySQL Image') {
     //  steps{
     //    script {
-    //      withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+    //      withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
     //        dockerImage.push('registry_mysql',)        
      //      }
      //   }
