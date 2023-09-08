@@ -6,9 +6,8 @@ pipeline {
     dockerImage = ""
     //DOCKER_CREDENTIALS = credentials('gmkmukesh333-DockerHub') 
 
-     DOCKER_USERNAME = "usrname"
- DOCKER_PASSWORD = "pasword"
-
+ DOCKER_USERNAME = "gmkmukesh333-DockerHub"
+ DOCKER_PASSWORD = "dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo"
   }
 
   agent any
@@ -23,10 +22,10 @@ pipeline {
             steps {
                 script {
                     // Define your Docker registry credentials as Jenkins credentials
-                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'gmkmukesh333-DockerHub', passwordVariable: dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo')]) {
                         
                         // Log in to the Docker registry
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD <your-docker-registry-url>"
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD <https://hub.docker.com/>"
                     }
                 }
             }
