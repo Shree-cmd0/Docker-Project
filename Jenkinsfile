@@ -1,13 +1,9 @@
 pipeline {
 
   environment {
-    registry = "gmkmukesh333/flask"
-    registry_mysql = "gmkmukesh333/mysql"
+    registry = "gmkmukesh333-DockerHub/flask"
+    registry_mysql = "gmkmukesh333-DockerHub/mysql"
     dockerImage = ""
-    //DOCKER_CREDENTIALS = credentials('gmkmukesh333-DockerHub') 
-
- DOCKER_USERNAME = "gmkmukesh333-DockerHub"
- DOCKER_PASSWORD = "dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo"
   }
 
   agent any
@@ -18,20 +14,6 @@ pipeline {
         git 'https://github.com/gmkmukesh/Docker-Project.git'
       }
     }
-      stage('Docker Login') {
-            steps {
-                script {
-                    // Define your Docker registry credentials as Jenkins credentials
-                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'gmkmukesh333-DockerHub', passwordVariable: 'dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo')]) 
-                   {
-                        
-                       
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD <https://hub.docker.com/>"
-                    }
-                }
-            }
-         }
-      
 
     stage('Build image') {
       steps{
@@ -41,12 +23,12 @@ pipeline {
       }
     }
 
-    stage('Push Image') {
+    stage('Push Flask Image') {
       steps{
         script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
-          }
+          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+            dockerImage.push()        
+           }
         }
       }
     }
@@ -60,10 +42,33 @@ pipeline {
    }
    stage('Build mysql image') {
      steps{
-       sh 'docker build -t "gmkmukesh333/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
-        sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
+        script { 
+       withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+       sh 'docker build -t "gopisuria/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
+       
+       sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
+        }
+      }}}
+      
+    stage('Push MySQL Image') {
+      steps{
+        script {
+          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+            dockerImage.push("registry_mysql")
+          }
         }
       }
+    }
+    //stage('Push MySQL Image') {
+    //  steps{
+    //    script {
+    //      withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "https://hub.docker.com" ]) {
+    //        dockerImage.push('registry_mysql',)        
+     //      }
+     //   }
+     // }
+    // }
+    
     stage('Deploy App') {
       steps {
         script {
