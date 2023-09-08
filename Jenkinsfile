@@ -4,7 +4,10 @@ pipeline {
     registry = "gmkmukesh333/flask"
     registry_mysql = "gmkmukesh333/mysql"
     dockerImage = ""
-    DOCKER_CREDENTIALS = credentials('gmkmukesh333-DockerHub') 
+    //DOCKER_CREDENTIALS = credentials('gmkmukesh333-DockerHub') 
+
+     DOCKER_USERNAME = "usrname"
+ DOCKER_PASSWORD = "pasword"
 
   }
 
@@ -16,15 +19,18 @@ pipeline {
         git 'https://github.com/gmkmukesh/Docker-Project.git'
       }
     }
-stage('Build and Push Image') {
+      stage('Docker Login') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'gmkmukesh333-DockerHub') {
+                    // Define your Docker registry credentials as Jenkins credentials
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         
+                        // Log in to the Docker registry
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD <your-docker-registry-url>"
                     }
                 }
             }
-        }
+
     stage('Build image') {
       steps{
         script {
