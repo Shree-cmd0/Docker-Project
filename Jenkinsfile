@@ -1,9 +1,11 @@
 pipeline {
 
   environment {
-    registry = "10.138.0.3:5001/mgsgoms/flask"
-    registry_mysql = "10.138.0.3:5001/mgsgoms/mysql"
+    registry = "gmkmukesh333/flask"
+    registry_mysql = "gmkmukesh333/mysql"
     dockerImage = ""
+    DOCKER_CREDENTIALS = credentials('gmkmukesh333') 
+
   }
 
   agent any
@@ -14,7 +16,15 @@ pipeline {
         git 'https://github.com/mgsgoms/Docker-Project.git'
       }
     }
-
+stage('Build and Push Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://hub.docker.com/', 'gmkmukesh333') {
+                        
+                    }
+                }
+            }
+        }
     stage('Build image') {
       steps{
         script {
@@ -42,8 +52,8 @@ pipeline {
    }
    stage('Build mysql image') {
      steps{
-       sh 'docker build -t "10.138.0.3:5001/mgsgoms/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
-        sh 'docker push "10.138.0.3:5001/mgsgoms/mysql:$BUILD_NUMBER"'
+       sh 'docker build -t "gmkmukesh333/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
+        sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
         }
       }
     stage('Deploy App') {
