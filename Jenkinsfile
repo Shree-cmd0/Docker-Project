@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Define your Docker registry credentials as Jenkins credentials
-                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'gmkmukesh333-DockerHub', passwordVariable: dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo')]) 
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', usernameVariable: 'gmkmukesh333-DockerHub', passwordVariable: 'dckr_pat_aV8zzV8GMB4JxvrwMTiVWWetiQo')]) 
                    {
                         
                        
