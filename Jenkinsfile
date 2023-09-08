@@ -4,7 +4,7 @@ pipeline {
     registry = "gmkmukesh333/flask"
     registry_mysql = "gmkmukesh333/mysql"
     dockerImage = ""
-    DOCKER_CREDENTIALS = credentials('gmkmukesh333') 
+    DOCKER_CREDENTIALS = credentials('gmkmukesh333-DockerHub') 
 
   }
 
@@ -19,7 +19,7 @@ pipeline {
 stage('Build and Push Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'gmkmukesh333') {
+                    docker.withRegistry('https://hub.docker.com/', 'gmkmukesh333-DockerHub') {
                         
                     }
                 }
