@@ -18,7 +18,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ""
         }
       }
     }
@@ -44,9 +44,9 @@ pipeline {
      steps{
         script { 
        withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
-       sh 'docker build -t "gmkmukesh333/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
+       sh 'docker build -t "gmkmukesh333/mysql"  "$WORKSPACE"/mysql'
        
-       sh 'docker push "gmkmukesh333/mysql:$BUILD_NUMBER"'
+       sh 'docker push "gmkmukesh333/mysql"'
         }
       }}}
       
