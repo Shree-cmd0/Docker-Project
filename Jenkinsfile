@@ -1,8 +1,8 @@
 pipeline {
 
   environment {
-    registry = "gmkmukesh333/flask"
-    registry_mysql = "gmkmukesh333/mysql"
+    registry = "subhasree02/flask"
+    registry_mysql = "subhasree02/mysql"
     dockerImage = ""
   }
 
@@ -11,7 +11,7 @@ pipeline {
   
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/gmkmukesh/Docker-Project.git'
+        git 'https://github.com/Shree-cmd0/Docker-Project.git'
       }
     }
 
@@ -26,7 +26,7 @@ pipeline {
     stage('Push Flask Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
+          withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
             dockerImage.push("registry")        
            }
         }
@@ -43,17 +43,17 @@ pipeline {
    stage('Build mysql image') {
      steps{
         script { 
-       withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
-       sh 'docker build -t "gmkmukesh333/mysql"  "$WORKSPACE"/mysql'
+       withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
+       sh 'docker build -t "subhasree02/mysql"  "$WORKSPACE"/mysql'
        
-       sh 'docker push "gmkmukesh333/mysql"'
+       sh 'docker push "Shree-cmd0/mysql"'
         }
       }}}
       
     stage('Push MySQL Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "gmkmukesh333-DockerHub", url: "" ]) {
+          withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
             dockerImage.push("registry_mysql")
           }
         }
