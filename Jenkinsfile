@@ -43,7 +43,7 @@ pipeline {
    stage('Build mysql image') {
      steps{
         script { 
-       withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
+       withDockerRegistry([ credentialsId: "dockercrdentials", url: "" ]) {
        sh 'docker build -t "subhasree02/mysql"  "$WORKSPACE"/mysql'
        
        sh 'docker push "Shree-cmd0/mysql"'
@@ -53,7 +53,7 @@ pipeline {
     stage('Push MySQL Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
+          withDockerRegistry([ credentialsId: "dockercrdentials", url: "" ]) {
             dockerImage.push("registry_mysql")
           }
         }
