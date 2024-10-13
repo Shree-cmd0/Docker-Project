@@ -26,7 +26,7 @@ pipeline {
     stage('Push Flask Image') {
       steps{
         script {
-          withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]) {
+          withDockerRegistry([ credentialsId: "dockercrdentials", url: "" ]) {
             dockerImage.push("registry")        
            }
         }
